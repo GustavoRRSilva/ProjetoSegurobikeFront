@@ -74,6 +74,34 @@ export default function UpdateBike() {
     }
   };
 
+  const deleteBike = async () => {
+    if (bikeId) {
+      const confirmDelete = window.confirm(
+        "Você tem certeza que deseja excluir esta bicicleta?"
+      );
+      if (confirmDelete) {
+        try {
+          const response = await fetch(
+            `http://localhost:8000/api/bikes/delete/${bikeId}/`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Erro ao excluir a bicicleta");
+          }
+          alert("Bicicleta excluída com sucesso!");
+          window.location.href = "/user"; // Redireciona para a lista de bikes após a exclusão
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+  };
+
   // Função para lidar com a mudança nos campos
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -118,9 +146,15 @@ export default function UpdateBike() {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-full"
           >
             Atualizar
+          </button>
+          <button
+            className="bg-red-500 text-white p-2 rounded hover:bg-red-600 w-full mt-2"
+            onClick={deleteBike}
+          >
+            Excluir
           </button>
         </form>
       </div>
