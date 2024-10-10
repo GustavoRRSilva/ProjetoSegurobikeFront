@@ -1,0 +1,20 @@
+.form div label{
+    color: white;
+    font-weight: bold;
+}
+.form div {
+    @apply flex flex-col;
+    gap: 10px
+}
+.form div input,.form div select{
+    @apply border border-gray-300 p-2 rounded ;
+
+}
+
+.form div{
+    width: 600px;
+}
+.form div img{
+    width: 400px;
+    margin: 0 auto;
+}
